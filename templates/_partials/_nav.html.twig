@@ -29,13 +29,13 @@
                     Account
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {% if app.usr == false %}
+                    {% if app.user == false %}
                         <a class="dropdown-item" href="{{ path('app_login') }}">Login</a>
                         <a class="dropdown-item" href="{{ path('app_register') }}">Register</a>
                     {% endif %}
 
-                    {% if app.usr %}
-                        {% if 'ROLE_ADMIN' in app.usr.roles %}
+                    {% if app.user %}
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
                             <a class="dropdown-item" href="{{ path('admin') }}">Admin Page</a>
                         {% endif %}
                         <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
