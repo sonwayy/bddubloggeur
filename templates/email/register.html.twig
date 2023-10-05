@@ -1,0 +1,10 @@
+<h1>Activate Your GamerZ Account</h1>
+
+<p>Hello {{ user.nickname }},</p>
+<p>Your new GamerZ account is almost ready.</p>
+<p>Click the button below to <strong>activate</strong> your account.</p>
+<p>If you didn't sign up for a GamerZ account, you can safely gnore this email.</p>
+<p>Thanks,</p>
+<p>The GamerZ Team</p>
+
+<p><a href="{{ absolute_url(path('app_verify', {token: token})) }}" style="background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;">Activate Account</a></p>

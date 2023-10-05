@@ -21,9 +21,7 @@
     font-family: 'FortniteFont';
     background: #0b0b32;
     padding-top: 60px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    position: relative;
 }
 
 .footer__nav {
