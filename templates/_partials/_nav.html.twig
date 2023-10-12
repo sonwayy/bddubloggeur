@@ -11,22 +11,12 @@
         <ul class="navbar-nav mr-auto"></ul>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ path('app_home') }}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ path('app_home') }}">Accueil <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Contents
-                </a>
 
-               {# <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ path('app_pow') }}">Play of the week</a>
-                    <a class="dropdown-item" href="{{ path('app_wr') }}">World records</a>
-                    <a class="dropdown-item" href="{{ path('app_fs') }}">Funny stuff</a>
-                </div>#}
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account
+                    Compte
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {% if app.user == false %}

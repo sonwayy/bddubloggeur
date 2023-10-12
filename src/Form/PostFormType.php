@@ -21,24 +21,32 @@ class PostFormType extends AbstractType
             ->add('title', TextType::class, [
                 'attr' => array(
                     'class' => 'form-control form-control-lg',
-                    'placeholder' => 'Title'
+                    'placeholder' => 'Titre de l\'article'
                 )
             ])
             ->add('body', CKEditorType::class, [
                 'attr' => array(
                     'class' => 'form-control form-control-lg',
-                    'placeholder' => 'Content Body'
+                    'placeholder' => 'Corps de l\'article'
                 )
             ])
             -> add('category', ChoiceType::class, [
                 'attr' => array(
                     'class' => 'form-control form-control-lg',
-                    'placeholder' => 'Category'
+                    'placeholder' => 'Categorie'
                 ),
                 'choices' => [
-                    'Play of the week' => 'Play of the week',
-                    'World records' => 'World records',
-                    'Funny stuff' => 'Funny stuff'
+                    'Comparatif' => 'Comparatif',
+                    'Retour d’expérience' => 'Retour d’expérience',
+                    'Tutoriel' => 'Tutoriel',
+                    'Conseil' => 'Conseil',
+                    'Classement' => 'Classement',
+                    'Actualité' => 'Actualité',
+                    'FAQ' => 'FAQ',
+                    'Nouveau produit' => 'Nouveau produit',
+                    'Biographie' => 'Biographie',
+                    'Partage d’expérience' => 'Partage d’expérience',
+                    'Partage d\'opinion' => 'Partage d\'opinion',
                 ]
             ])
             -> add('thumbnailPath', FileType::class, array(
@@ -46,7 +54,7 @@ class PostFormType extends AbstractType
                 'mapped' => false,
                 'attr' => array(
                     'class' => 'form-control form-control-lg',
-                    'placeholder' => 'Thumbnail'
+                    'placeholder' => 'Image de l\'article'
                 )
             ));
     }

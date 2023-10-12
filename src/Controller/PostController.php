@@ -31,7 +31,6 @@ class PostController extends AbstractController
     {
         // Get all the posts
         $posts = $this->postRepository->findAll();
-        dd($posts);
 
         // Render the view
         return $this->render('post/index.html.twig', [

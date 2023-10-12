@@ -18,7 +18,7 @@ class HomeController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/home', name: 'app_home')]
+    #[Route('/', name: 'app_home')]
     public function index(): Response
     {
         // Get all the posts
