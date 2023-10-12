@@ -16,11 +16,6 @@
             class="btn btn-primary mr-3">
             Create New post
         </a>
-        <a
-            href="/video/create"
-            class="btn btn-primary">
-            Create New video
-        </a>
     </div>
     <div class="container">
         <div class="col-15">
@@ -49,28 +44,6 @@
                     </div>
 
                 {% endfor %}
-                {#{% for video in videos %}
-                    <div class="text-center pb-5 col-md-4">
-                        <video controls>
-                            <source src="{{ video.video }}" type="video/mp4">
-                            Voici <a href="{{ video.video }}">un lien pour télécharger la vidéo</a>.
-                        </video>
-
-                        <h2 class="text-gray-700 font-bold text-3xl py-2">
-                            {{ video.title }}
-                        </h2>
-
-                        <span class="text-gray-500">
-                            By <span class="italic text-sm text-gray-800"> {{ video.userName }} | {{ video.publishDate|date('d/m/Y') }}
-                        </span>
-
-                        <p class="my-4"></p>
-
-                        <a href="/video/{{ video.id }}" class="text border border-secondary text-white text-lg py-3 px-3 rounded bg-success">
-                            Read More
-                        </a>
-                    </div>
-                {% endfor %}#}
             </div>
         </div>
     </div>
