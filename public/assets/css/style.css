@@ -1,8 +1,3 @@
-@font-face {
-    font-family: "FortniteFont";
-    src: url("../fonts/fortnite.otf");
-}
-
 .navbar {
     font-family: 'FortniteFont';
     font-size: 1.5em;
