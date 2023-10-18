@@ -1,0 +1,89 @@
+{% extends "./base.html.twig" %}
+
+{% block body %}
+    <div class="text-center text-justify">
+        <h1 class="pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center">
+            {{ post.title }}
+        </h1>
+
+        <div class="py-10 text-center">
+            <div class="inline-block sm:pt-1">
+                <h2 class="font-bold">
+                    Créé par: {{ post.userName }}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    Publié le {{ post.publishDate|date('d/m/Y') }}
+                </p>
+
+                <p>
+                    Catégorie : {{ post.category }}
+                </p>
+            </div>
+        </div>
+
+        <img
+            src="{{ post.thumbnailPath }}"
+            class="rounded-xl w-full shadow-xl"
+            alt="Icon of Code With Dary"
+            style="height: 400px; object-fit: cover;"
+        />
+
+        <p class="text-xl py-6">
+            {{ post.body|raw }}
+        </p>
+        {% if app.user and app.user.id == post.userId %}
+            <a
+                href="/post/edit/ {{post.id}}"
+                id="edit_button"
+                class="p-3 bg-success text-white fw-bold py-2 px-4 rounded"
+                style="margin-bottom: 100x;">Modifier l'article</a>
+            <a href="/post/delete/ {{post.id}}" id="delete_button" class="p-3 mb-2 bg-danger text-white fw-bold py-2 mx-4 my-4 rounded ">Delete Post</a>
+        {% endif %}
+        {#<div>
+            <h1>List of Comments</h1>
+            {% for comment in post.comments %}
+
+                {% if comment.parent == null %}
+                    <div class="p-3 border border-primary w-75 mx-auto fw-bold py-2 px-4 rounded my-4">
+                        <h3>Comment of {{ comment.nickname }}</h3>
+                        <p>Posted on {{ comment.createdAt|date('d/m/Y H:i') }}</p>
+                        <p>{{ comment.content|raw }}</p>
+                        {% if app.user %}
+                            <p><a href="#add_comment" class="p-3 bg-success text-white fw-bold py-2 px-4 rounded" data-reply data-id="{{ comment.id }}">Answer</a></p>
+                        {% endif %}
+                        {% for reply in comment.replies %}
+                            <div class="p-3 border border-primary w-75 mx-auto fw-bold py-2 px-4 rounded my-4">
+                                <p>Answer Posted by {{ reply.nickname }} on {{ reply.createdAt|date('d/m/Y H:i') }}</p>
+                                <p>{{ reply.content|raw }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        {% if app.user %}
+            <div id="add_comment">
+                <h1>Write a Comment</h1>
+                {{ form_start(commentForm) }}
+                {{ form_widget(commentForm) }}
+                {{ form_end(commentForm) }}
+            </div>
+        {% else %}
+            <p>You must be logged in to comment</p>
+        {% endif %}#}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.onload = () => {
+            document.querySelectorAll('[data-reply]').forEach(element => {
+                element.addEventListener('click', function() {
+                    document.querySelector('#comment_parentid').value = this.dataset.id;
+                });
+            });
+        }
+    </script>
+{% endblock %}
