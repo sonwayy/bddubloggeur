@@ -103,7 +103,17 @@ class PostController extends AbstractController
     #[Route('/post/edit/{id}', name: 'edit_post')]
     public function edit(Request $request, $id): Response
     {
-        // edit a post
+        // if the user is not logged in we redirect him to the login page
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
+        // if the user is not the author of the post we redirect him to the home page avec un message d'erreur
+
+        if ($this->getUser()->getId() !== $this->postRepository->find($id)->getUserId()) {
+            $this->addFlash('error', 'Vous n\'êtes pas l\'auteur de ce post');
+            return $this->redirectToRoute('app_home');
+        }
 
         $post = $this->postRepository->find($id);
         $form = $this->createForm(PostFormType::class, $post);
@@ -162,6 +172,18 @@ class PostController extends AbstractController
     {
         // Delete a post
 
+        // if the user is not logged in we redirect him to the login page
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
+        // if the user is not the author of the post we redirect him to the home page avec un message d'erreur
+
+        if ($this->getUser()->getId() !== $this->postRepository->find($id)->getUserId()) {
+            $this->addFlash('error', 'Vous n\'êtes pas l\'auteur de ce post');
+            return $this->redirectToRoute('app_home');
+        }
+
         $post = $this->postRepository->find($id);
         $this->em->remove($post);
         $this->em->flush();
@@ -172,47 +194,12 @@ class PostController extends AbstractController
     #[Route('/post/{id}', methods: ['GET', 'POST'], name: 'show_post')]
     public function show($id, Request $request, ManagerRegistry $doctrine): Response
     {
-
         // finding the post
         $post = $this->postRepository->find($id);
-
-        /*// creating a new comment
-        $comment = new Comment();
-        $commentForm = $this->createForm(CommentType::class, $comment);
-        $commentForm->handleRequest($request);
-
-        // if the comment form is submitted and is valid
-        if($commentForm->isSubmitted() && $commentForm->isValid()){
-
-            // setting the nw comment
-            $newComment = $commentForm->getData();
-            $newComment->setPost($post);
-            $newComment->setCreatedAt(new \DateTimeImmutable());
-            $newComment->setNickname($this->getUser()->getNickname());
-
-            // getting the parent of the comment
-            $parentid = $commentForm->get('parentid')->getData();
-
-            if($parentid != null){
-                //
-                $parent = $this->em->getRepository(Comment::class)->find($parentid);
-            }
-
-            // if the parent is null
-            $comment->setParent($parent ?? null);
-
-            // persisting the comment
-            $this->em->persist($newComment);
-            $this->em->flush();
-            $this->addFlash('success', 'Comment added');
-
-            return $this->redirectToRoute('show_post', ['id' => $post->getId()]);
-        }*/
 
         return $this->render('post/show.html.twig', [
             'controller_name' => 'PostController',
             'post' => $post,
-            /*'commentForm' => $commentForm->createView()*/
         ]);
     }
 }

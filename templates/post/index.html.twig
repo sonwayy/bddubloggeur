@@ -23,8 +23,9 @@
                 <!-- Review Item -->
                 {% for post in posts %}
                     <div class="text-center pb-5 col-md-4">
+                        {% set thumbnailPath = post.thumbnailPath starts with '/uploads/' ? post.thumbnailPath : '/uploads/' ~ post.thumbnailPath %}
                         <img
-                            src="{{ post.thumbnailPath }}"
+                            src="{{ thumbnailPath }}"
                             alt=""
                             class="shadow-xl rounded"
                             style="width: 300px; height: 300px;"
@@ -44,10 +45,8 @@
                     </div>
 
                 {% endfor %}
-                <div class="navigation">
-                    {{ knp_pagination_render(posts) }}
-                </div>
             </div>
         </div>
+        {{ knp_pagination_render(posts) }}
     </div>
 {% endblock %}

@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[Vich\Uploadable]
 class Post
 {
     #[ORM\Id]
@@ -25,8 +29,13 @@ class Post
     #[ORM\Column(length: 10000)]
     private ?string $body = null;
 
+    //Make a thumbnailPath and ThumnailFile with VichUploaderBundle
     #[ORM\Column(length: 255)]
     private ?string $thumbnailPath = null;
+
+    #[Vich\UploadableField(mapping: 'post_image', fileNameProperty: 'thumbnailPath')]
+    private ?File $thumbnailFile = null;
+
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $thumbnailUpload = null;
@@ -137,6 +146,22 @@ class Post
         $this->userName = $userName;
 
         return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getThumbnailFile(): ?File
+    {
+        return $this->thumbnailFile;
+    }
+
+    /**
+     * @param File|null $thumbnailFile
+     */
+    public function setThumbnailFile(?File $thumbnailFile): void
+    {
+        $this->thumbnailFile = $thumbnailFile;
     }
 
     /**
