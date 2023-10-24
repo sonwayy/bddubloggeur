@@ -9,6 +9,7 @@ use App\Form\PostFormType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,15 +28,21 @@ class PostController extends AbstractController
     }
 
     #[Route('/post', methods: ['GET'], name: 'app_post')]
-    public function index(): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
         // Get all the posts
         $posts = $this->postRepository->findAll();
 
+        $pagination = $paginator->paginate(
+            $posts,
+            $request->query->getInt('page', 1),
+            6
+        );
+
         // Render the view
         return $this->render('post/index.html.twig', [
             'controller_name' => 'PostController',
-            'posts' => $posts
+            'posts' => $pagination
         ]);
     }
 

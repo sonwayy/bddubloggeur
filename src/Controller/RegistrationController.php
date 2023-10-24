@@ -140,7 +140,7 @@ class RegistrationController extends AbstractController
         $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
         // generate a signed url and email it to the user
-        $mail->send('no-reply@sonway.fr', $user->getEmail(), 'Activation of your GamerZ account', 'register', ['user' => $user, 'token' => $token]);
+        $mail->send('no-reply@sonway.fr', $user->getEmail(), 'Activation of your BdDuBloggeur account', 'register', ['user' => $user, 'token' => $token]);
 
         $this->addFlash('success', 'The activation email has been resent');
         return $this->redirectToRoute('app_login');

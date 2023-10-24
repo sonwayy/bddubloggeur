@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\File;
 
 class PostFormType extends AbstractType
 {
@@ -49,16 +50,23 @@ class PostFormType extends AbstractType
                     'Partage d\'opinion' => 'Partage d\'opinion',
                 ]
             ])
-            -> add('thumbnailPath', FileType::class, array(
+            ->add('thumbnailPath', FileType::class, [
                 'required' => false,
                 'mapped' => false,
-                'attr' => array(
+                'attr' => [
                     'class' => 'form-control form-control-lg',
-                    'placeholder' => 'Image de l\'article'
-                )
-            ));
+                    'placeholder' => 'Image de l\'article',
+                ],
+                'constraints' => [
+                    new File([
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif'], // Types d'images autorisés
+                        'mimeTypesMessage' => 'Veuillez télécharger une image au format JPEG, PNG ou GIF.',
+                        'maxSize' => '8000k',
+                    ]),
+                ],
+            ]);
+
     }
-    //->add('user')
 
     public function configureOptions(OptionsResolver $resolver): void
     {
